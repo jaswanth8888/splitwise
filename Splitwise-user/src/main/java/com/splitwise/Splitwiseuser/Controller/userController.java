@@ -1,6 +1,5 @@
 package com.splitwise.Splitwiseuser.Controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +19,8 @@ public class userController {
 
 	@GetMapping("/user/{uId}")
 	public User getUser(@PathVariable int uId) {
-		Optional<User> user = userService.getUserById(uId);
-		User user1 = user.get();
-		return user1;
+		User user = userService.getUserById(uId);
+		return user;
 	}
 	@PostMapping("/user")
 	public User saveUser(@RequestBody User user ) {
@@ -33,7 +31,7 @@ public class userController {
 	public boolean CheckUser(@PathVariable int uId) {
 		return userService.userExists(uId);
 	}
-	@PutMapping("/add-friend/{uId}/{friendId}")
+	@PostMapping("/add-friend/{uId}/{friendId}")
 	public boolean addfriend(@PathVariable int uId, @PathVariable int friendId) {
 		return userService.addFriend(uId, friendId);
 	}

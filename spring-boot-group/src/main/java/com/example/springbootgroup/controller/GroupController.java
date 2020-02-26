@@ -1,9 +1,8 @@
 package com.example.springbootgroup.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springbootgroup.beans.Group;
 import com.example.springbootgroup.service.GroupService;
+import com.example.springbootgroup.service.UserServiceProxy;
 
 
 
@@ -23,22 +23,12 @@ import com.example.springbootgroup.service.GroupService;
 public class GroupController {
 
 
-//    @Autowired(required = true)
-//    private GroupServiceProxy GroupServiceProxy;
     
     @Autowired
     private GroupService groupService;
     
-    // here the group id logic is still not implemented, 
-    // and the employee information will be taken from 
-    // another micro service 
-//    @GetMapping("/groups/{groupId}/{userId}")
-//    public Object getGroupWithEmployees( @PathVariable int groupId, @PathVariable int userId) {
-//        System.out.println("Requested Group ID " + groupId);
-//        return GroupServiceProxy.getUser(userId);
-//    } 
-    
-    //create
+    @Autowired
+    private UserServiceProxy userServiceProxy;
     
     @PostMapping("/create-group")
     public Group createGroup(@RequestBody Group group) {
@@ -48,10 +38,22 @@ public class GroupController {
     	return groupService.createGroup(group1);    	
     }
     
-    @GetMapping("/")
-    public String hellowrold() {
-    	return "hello-world";
+    @GetMapping("/group/{groupId}")
+    public Group getGroup(@PathVariable Integer groupId) {
+    	return groupService.getGroupById(groupId).get();
     }
+    
+    @GetMapping("/group/users/{groupId}")
+    public List<Object> getGroupUserDetails(@PathVariable Integer groupId){
+    	Group g=groupService.getGroupById(groupId).get();
+    	List<Object> users=new ArrayList<Object>();
+    	for(Integer userId:g.getMembers()) {
+    		users.add(userServiceProxy.getUser(userId));
+    	}
+    	return users;
+    }
+    
+    
     
 	/*
 	 * @GetMapping("/group/{groupId}") public Optional<Group> getGroup(@PathVariable

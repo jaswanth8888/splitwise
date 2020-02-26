@@ -14,8 +14,11 @@ public class userService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public Optional<User> getUserById(Integer uId) {
-		return userRepository.findById(uId);
+	public User getUserById(Integer uId) {
+		if(userRepository.existsById(uId)){
+			return userRepository.findById(uId).get();
+		}
+		return null;
 	}
 
 	public User insertUser(User user) {
@@ -34,12 +37,11 @@ public class userService {
 
 	{
 		if (this.userExists(friendId)) {
-			Optional<User> user = this.getUserById(uId);
-			User user1 = user.get();
-			List<Integer> friends = user1.getFriends();
+			User user = this.getUserById(uId);			
+			List<Integer> friends = user.getFriends();
 			friends.add(friendId);
-			user1.setFriends(friends);
-			return userRepository.save(user1) != null;
+			user.setFriends(friends);
+			return userRepository.save(user) != null;
 
 		}
 		return false;

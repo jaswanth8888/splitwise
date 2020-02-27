@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.splitwise.Splitwiseuser.Service.userService;
@@ -32,5 +33,9 @@ public class userController {
 	@PostMapping("/add-friend/{uId}/{friendId}")
 	public boolean addfriend(@PathVariable int uId, @PathVariable int friendId) {
 		return userService.addFriend(uId, friendId);
+	}
+	@GetMapping("/get-user-by-username/{username}")
+	public User getUserByUsername(@PathVariable String username) {
+		return userService.getUserByUsername(username);
 	}
 }

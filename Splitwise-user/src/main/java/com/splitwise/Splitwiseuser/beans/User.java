@@ -8,19 +8,28 @@ public class User {
 	private int id;
 	private Name name;
 	private String dob;
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	private long phoneNumber;
 	private String email;
+	private String password;
 	private Address address;
 	private List<Integer> friends;
 	private List<Integer> groups;
-	public User(int id, Name name, String dob, long phoneNumber, String email, Address address, List<Integer> friends,
-			List<Integer> groups) {
+
+	public User(int id, Name name, String dob, long phoneNumber, String email, String password, Address address,
+			List<Integer> friends, List<Integer> groups) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.dob = dob;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.password = password;
 		this.address = address;
 		this.friends = friends;
 		this.groups = groups;

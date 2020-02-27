@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springbootgroup.beans.Group;
 import com.example.springbootgroup.service.GroupService;
 import com.example.springbootgroup.service.UserServiceProxy;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 
@@ -44,6 +45,7 @@ public class GroupController {
     }
     
     @GetMapping("/group/users/{groupId}")
+    @HystrixCommand(fallbackMethod = "fallback")
     public List<Object> getGroupUserDetails(@PathVariable Integer groupId){
     	Group g=groupService.getGroupById(groupId).get();
     	List<Object> users=new ArrayList<Object>();
@@ -53,7 +55,14 @@ public class GroupController {
     	return users;
     }
     
-    
+    @SuppressWarnings("unused")
+    private List<Object> fallback(Integer gid) {
+        System.out.println("Breaking here");
+        throw new RuntimeException("Hystrix");
+        //List<Object> l=new ArrayList<Object>();
+        //l.add(new Object());
+        //return null;
+    }
     
 	/*
 	 * @GetMapping("/group/{groupId}") public Optional<Group> getGroup(@PathVariable

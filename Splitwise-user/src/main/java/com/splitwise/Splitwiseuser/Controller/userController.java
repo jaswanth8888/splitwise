@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +18,7 @@ public class userController {
 
 	@GetMapping("/user/{uId}")
 	public User getUser(@PathVariable int uId) {
-		User user = userService.getUserById(uId);
-		return user;
+		return userService.getUserById(uId);
 	}
 	@PostMapping("/user")
 	public User saveUser(@RequestBody User user ) {

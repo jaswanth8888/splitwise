@@ -1,6 +1,8 @@
 package com.splitwise.Splitwiseuser.Controller;
 
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +37,12 @@ public class userController {
 		return userService.addFriend(uId, friendId);
 	}
 	@GetMapping("/get-user-by-username/{username}")
-	public User getUserByUsername(@PathVariable String username) {
-		return userService.getUserByUsername(username);
+	public HashMap<String, String> getUserByUsername(@PathVariable String username) {
+		User user=userService.getUserByUsername(username);
+		HashMap<String, String> userObject=new HashMap<String, String>();
+		userObject.put("username", user.getEmail());
+		userObject.put("password", user.getPassword());
+		return userObject;
+		
 	}
 }

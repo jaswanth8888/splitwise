@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.zuul.netflixzuulapigateway.model.JwtRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	@Autowired(required=true)
@@ -15,10 +18,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Object user=userServiceProxy.getUserByUsername(username);
+		ObjectMapper objectMapper=new ObjectMapper();
+		JwtRequest user=objectMapper.convertValue(userServiceProxy.getUserByUsername(username).getBody(), JwtRequest.class);
 		if (user!=null) {
-			return new User("jaswanth@ps.com", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-					new ArrayList<>());
+			return new User(user.getUsername(), user.getPassword(),new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}

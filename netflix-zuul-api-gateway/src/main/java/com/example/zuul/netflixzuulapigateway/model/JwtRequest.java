@@ -1,4 +1,4 @@
-package com.example.zuul.netflixzuulapigateway.model;
+	package com.example.zuul.netflixzuulapigateway.model;
 import java.io.Serializable;
 
 public class JwtRequest implements Serializable {
@@ -8,6 +8,12 @@ public class JwtRequest implements Serializable {
 	private String username;
 	private String password;
 	
+	
+	@Override
+	public String toString() {
+		return "JwtRequest [username=" + username + ", password=" + password + "]";
+	}
+
 	//need default constructor for JSON Parsing
 	public JwtRequest()
 	{

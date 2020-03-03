@@ -8,11 +8,15 @@ export default class home extends Component {
              
         }
     }
+    componentDidUpdate(prevProps,prevState){
+        console.log(prevProps,prevState);
+        
+    }
     
     render() {
         return (
             <div>
-                
+                <h1>hi</h1>
             </div>
         )
     }

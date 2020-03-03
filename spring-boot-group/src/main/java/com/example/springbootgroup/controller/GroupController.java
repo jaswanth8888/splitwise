@@ -16,7 +16,7 @@ import com.example.springbootgroup.service.GroupService;
 import com.example.springbootgroup.service.UserServiceProxy;
 
 
-
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
@@ -43,7 +43,7 @@ public class GroupController {
     	return groupService.getGroupById(groupId).get();
     }
     
-    @GetMapping("/group/users/{groupId}")
+    /*@GetMapping("/group/users/{groupId}")
     public List<Object> getGroupUserDetails(@PathVariable Integer groupId){
     	Group g=groupService.getGroupById(groupId).get();
     	List<Object> users=new ArrayList<Object>();
@@ -51,7 +51,35 @@ public class GroupController {
     		users.add(userServiceProxy.getUser(userId));
     	}
     	return users;
+    }*/
+    
+    
+    
+    @GetMapping("/group/users/{groupId}")
+    @HystrixCommand(fallbackMethod = "fallback")
+    public List<Object> getGroupUserDetails(@PathVariable Integer groupId){
+    	Group g=groupService.getGroupById(groupId).get();
+    	List<Object> users=new ArrayList<Object>();
+    	System.out.println("FallBack Method called ");
+    	for(Integer userId:g.getMembers()) {
+    		users.add(userServiceProxy.getUser(userId));
+    	}
+    	return users;
     }
+    
+    @SuppressWarnings("unused")
+    private List<Object> fallback(Integer gid) {
+        System.out.println("Breaking here");
+        throw new RuntimeException("Hystrix");
+        //List<Object> l=new ArrayList<Object>();
+        //l.add(new Object());
+        //return null;
+    }
+   /* @GetMapping("/group/users/{groupId}")
+    public List<Object> getGroupWithEmployes
+    */
+    
+    
     
     
     

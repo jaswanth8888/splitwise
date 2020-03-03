@@ -8,6 +8,10 @@ public class User {
 	private int id;
 	private Name name;
 	private String dob;
+	public User() {
+		
+		// TODO Auto-generated constructor stub
+	}
 	private long phoneNumber;
 	private String email;
 	private Address address;

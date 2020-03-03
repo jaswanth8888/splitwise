@@ -46,4 +46,9 @@ public class userService {
 		}
 		return false;
 	}
+
+	public User getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUsername(username);
+	}
 }

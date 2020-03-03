@@ -13,5 +13,5 @@ public interface UserServiceProxy {
 	 
 	 @GetMapping("user-management/checkUser/{uId}")
 	 public boolean checkUserExsists(@PathVariable("uId") int uId);
-	}
+}
 	

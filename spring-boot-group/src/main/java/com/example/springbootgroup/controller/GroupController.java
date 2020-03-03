@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springbootgroup.beans.Group;
 import com.example.springbootgroup.service.GroupService;
 import com.example.springbootgroup.service.UserServiceProxy;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -75,6 +76,7 @@ public class GroupController {
         //l.add(new Object());
         //return null;
     }
+<<<<<<< HEAD
    /* @GetMapping("/group/users/{groupId}")
     public List<Object> getGroupWithEmployes
     */
@@ -82,6 +84,8 @@ public class GroupController {
     
     
     
+=======
+>>>>>>> eb175123b123122a2dab69dc9441a7dd896bed9e
     
 	/*
 	 * @GetMapping("/group/{groupId}") public Optional<Group> getGroup(@PathVariable

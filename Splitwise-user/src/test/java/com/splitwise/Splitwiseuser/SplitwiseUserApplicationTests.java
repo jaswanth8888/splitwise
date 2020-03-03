@@ -46,6 +46,7 @@ class SplitwiseUserApplicationTests {
 		user.setDob("12/12/1976");
 		user.setAddress(new Address("123", "Prerananagar", "Bnagalore", 85,"pes", "karnataka", "india"));
 		user.setEmail("suraj@ps.com");
+		user.setPassword("123");
 		user.setName(new Name("Suraj", "Suhas"));
 		user.setFriends(new ArrayList<Integer>());
 		user.setPhoneNumber(98542432);
@@ -71,9 +72,9 @@ class SplitwiseUserApplicationTests {
 	{
 		List<User> list=new ArrayList<User>();
 		
-		User user1=new User(12,new Name("Preeti", "Agarwal"), "12/10/87", 986588665, "preeti@ps.com", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
-		User user2=new User(14,new Name("Saahil", "Agarwal"), "12/10/87", 986588665, "saahil@ps.com", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
-		User user3=new User(17,new Name("Prerana", "Jayakumar"), "12/10/87", 986588665, "preeti@ps.com", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
+		User user1=new User(12,new Name("Preeti", "Agarwal"), "12/10/87", 986588665, "preeti@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
+		User user2=new User(14,new Name("Saahil", "Agarwal"), "12/10/87", 986588665, "saahil@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
+		User user3=new User(17,new Name("Prerana", "Jayakumar"), "12/10/87", 986588665, "preeti@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
 
 	
 	list.add(user1);

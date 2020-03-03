@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Cookies from 'universal-cookie';
+import {Redirect} from 'react-router-dom';
 
 export default class login extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class login extends Component {
     if (this.validatEmail()) {
       this.submitForm();
     }
-  };
+  };  
   submitForm = () => {
     axios
       .post("http://localhost:8765/authenticate", this.state.user)
@@ -43,16 +44,26 @@ export default class login extends Component {
           let d = new Date();
           let minutes = 10;
           d.setTime(d.getTime() + minutes * 60 * 1000);
+          console.log(res);
           cookie.set("token", res.data.token);
           cookie.set("email",this.state.user.username);
-          console.log(cookie.get("token"));
+          
         }
       });
   };
+  isAuthenticated(){
+    
+    var cookie=new Cookies();
+    var token=cookie.get('token');
+    return token && token.length >10;
+}
 
   render() {
-    return (
-      <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
+    const isAlreayAuthenticated = this.isAuthenticated();
+   return (
+    <div>
+       {isAlreayAuthenticated ? (<Redirect to={{pathname:'/'}}/> ) : ( 
+<div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
         <div className="card-header">Login</div>
         <div className="card-body">
           <form>
@@ -60,7 +71,7 @@ export default class login extends Component {
               <label htmlFor="username">Email address</label>
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="username"
                 name="username"
                 placeholder="Enter email"
@@ -74,7 +85,7 @@ export default class login extends Component {
               <label htmlFor="password">Password</label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="password"
                 name="password"
                 placeholder="Password"
@@ -86,7 +97,7 @@ export default class login extends Component {
             </div>
             <button
               type="button"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={this.submitForm}
             >
               Login
@@ -94,6 +105,11 @@ export default class login extends Component {
           </form>
         </div>
       </div>
+         ) 
+              }
+        
+      
+    </div>
     );
   }
 }

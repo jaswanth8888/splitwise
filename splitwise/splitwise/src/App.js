@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Login from "./login";
 import Header from "./header";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default class App extends Component {
   render() {
@@ -11,7 +10,7 @@ export default class App extends Component {
         <Router>
           <Switch>
             <Route path="/" exact={true} component={Login}/>
-            <Route path="/home" eaxct={true} component={Header}/>
+            <Route path="/home" exact={true} component={Header}/>
           </Switch>
         </Router>
       </Fragment>

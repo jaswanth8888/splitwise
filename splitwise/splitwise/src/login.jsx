@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 
 export default class login extends Component {
   constructor(props) {
+    var cookie = new Cookies();
+    
     super(props);
 
     this.state = {
@@ -12,7 +14,8 @@ export default class login extends Component {
         username: "",
         password: ""
       },
-      login: false
+      login: false,
+      token:cookie.get('token')
     };
     this.submitForm = this.submitForm.bind(this);
   }
@@ -31,8 +34,8 @@ export default class login extends Component {
           let d = new Date();
           let minutes = 10;
           d.setTime(d.getTime() + minutes * 60 * 1000);
-          console.log(res);
-          cookie.set("token", res.data.token);
+          cookie.set("email",this.state.user.username);
+          cookie.set("token",res.data.token);
           this.setState({ login: true });
         }
       });
@@ -46,13 +49,31 @@ export default class login extends Component {
   render() {
     const isAlreayAuthenticated = this.isAuthenticated();
     return (
-      <div>
+      <div id="pageDiv">
         {isAlreayAuthenticated ? (
           <Redirect to={{ pathname: "/home" }} />
         ) : (
+          <div style={{position:"absolute",top:"0px",left:"0px",right:"0px",bottom:"0px",width:"100%",height:"90%"}}>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a className="navbar-brand" href="#">
+              Splitwise
+            </a>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarColor01"
+              aria-controls="navbarColor01"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </nav>
+            <div style={{ display:"flex",justifyContent:"center",alignItems:"center",height:"100%"}}>
           <div
             className="card border-primary mb-3"
-            style={{ maxWidth: "20rem" }}
+            style={{ maxWidth: "500px"}}
           >
             <div className="card-header">Login</div>
             <div className="card-body">
@@ -94,6 +115,8 @@ export default class login extends Component {
                 </button>
               </form>
             </div>
+          </div>
+          </div>
           </div>
         )}
       </div>

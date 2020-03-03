@@ -3,23 +3,46 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./home";
 import Groups from "./groups";
 import Cookies from "universal-cookie";
-import Login from "./login";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
+
 
 export default class header extends Component {
   constructor(props) {
     super(props)
-  
+    var cookie = new Cookies();
     this.state = {
-       logout:false
+       logout:false,
+       token:cookie.get('token'),
+       email:cookie.get('email'),
+       userId:'',
+       userName:''
+
+       
     }
+    this.getUserId();
   }
-  
+  getUserId(){
+    console.log('invoked');
+    
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + this.state.token
+      }
+    }
+    axios.get("http://localhost:8000/get-userId-by-username/"+this.state.email,{
+      headers: { 'Authorization': + 'Bearer '+this.state.token },
+    }).then(res=>{
+      console.log(res);
+      if(res.status==200){
+        this.setState({userId:res.data.id})
+        this.setState({userName:res.data.name})
+      }
+    })
+  }
   isAuthenticated() {
     var cookie = new Cookies();
     var token = cookie.get("token");
-    console.log(token);
-
     return token && token.length > 10;
   }
   logout=()=>{
@@ -27,16 +50,18 @@ export default class header extends Component {
     cookie.remove('token');
     this.setState({logout:true})
   }
+ 
 
   render() {
     const isAlreayAuthenticated = this.isAuthenticated();
+    
     return (
     <div>{isAlreayAuthenticated ? (<Fragment>
       <Router>
         <div>
           <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a className="navbar-brand" href="#">
-              Splitwise
+            <a className="navbar-brand" href="/home">
+              Splitwise {this.props.location.id}
             </a>
             <button
               className="navbar-toggler"
@@ -53,7 +78,7 @@ export default class header extends Component {
             <div className="collapse navbar-collapse" id="navbarColor01">
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item active">
-                    <Link to="/" className="nav-link">
+                    <Link to="/home" className="nav-link">
                       Home <span className="sr-only">(current)</span>
                     </Link>
                   </li>
@@ -70,18 +95,19 @@ export default class header extends Component {
 
                   <li className="nav-item dropdown">
                     <a
-                      class="nav-link dropdown-toggle"
+                      className="nav-link dropdown-toggle"
                       data-toggle="dropdown"
-                      href="#"
                       aria-expanded="false"
-                    >
-                    <span class="caret"></span>
+                    >{this.state.userName}
+                    <span className="caret"></span>
                     </a>
-                    <div class="dropdown-menu">
+                    <div className="dropdown-menu">
+                    <li className="dropdown-item">
                       
-                      {/* <div class="dropdown-divider"></div> //to keep divider in ropdown */}
+                  </li>
+                      {/* <div className="dropdown-divider"></div> */}
                       <button
-                        class="dropdown-item" onClick={this.logout}
+                        className="dropdown-item" onClick={this.logout}
                       >
                        Logout
                       </button>
@@ -94,7 +120,7 @@ export default class header extends Component {
         </div>
         <Switch>
           <Route path="/home">
-            <Home />
+            <Home userId={this.state.userId} />
           </Route>
           <Route path="/groups">
             <Groups />

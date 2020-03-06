@@ -183,7 +183,7 @@ export default class header extends Component {
             <Home userId={this.state.userId} allUsers={this.state.allUsers} settleTransaction={this.settleTransaction} credit={this.state.credit} debit={this.state.debit} transactionData={this.state.transactionData}/>
           </Route>
           <Route path="/groups">
-            <Groups userId={this.state.userId} groups={this.state.groups}/>
+            <Groups userId={this.state.userId} groups={this.state.groups} getGroup={this.getGroup}/>
           </Route>
           <Route path="/group/:pathparam">
             <GroupDetails userId={this.state.userId} allUsers={this.state.allUsers} groups={this.state.groups} />

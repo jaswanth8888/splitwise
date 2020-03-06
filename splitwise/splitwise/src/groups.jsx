@@ -16,7 +16,7 @@ export default class groups extends Component {
   render() {
     return (
       <div>
-        <CreateGroup  userId={this.props.userId}/>
+        <CreateGroup  userId={this.props.userId} getGroups={this.props.getGroups}/>
         <div className="col-md-6">
         <div className="list-group">
             {console.log('from groups:',this.props.groups)}

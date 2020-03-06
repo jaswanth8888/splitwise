@@ -72,7 +72,6 @@ public class userController {
 		User user=userService.getUserById(userId);
 		List<Integer> groupIds=user.getGroups();
 		HashMap<Integer,String> groups=new HashMap<Integer, String>();
-		System.out.println(groupServiceProxy.getGroupName(1));
 		for(Integer groupId: groupIds) {
 			 groups.put(groupId, groupServiceProxy.getGroupName(groupId));
 		}

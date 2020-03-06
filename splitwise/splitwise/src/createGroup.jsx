@@ -28,6 +28,8 @@ export default class createGroup extends Component {
       if(res.status==200){
         axios.get("http://localhost:8000/user/"+document.getElementById("createGroupUserId").value+"/group/"+group.id).then((res)=>{
           document.getElementById("modal-button1").click()
+          document.getElementById("getgroups").click()
+          
         })
       }
       
@@ -82,9 +84,13 @@ export default class createGroup extends Component {
                 </form>
               </div>
               <div className="modal-footer">
+              <button type="button" id="getgroups" className="hide" style={{visibility:"hidden"}} onClick={this.props.getGroups(this.props.userId)}>
+                 
+                 </button>
                 <button type="button" className="btn btn-primary" onClick={this.createGroup}>
                   Create
                 </button>
+                
                 <button
                   type="button"
                   className="btn btn-secondary"

@@ -52,7 +52,8 @@ class groupDetails extends Component {
 
     axios.post('http://localhost:9190/group/'+document.getElementById('addGroupId').value+'/add-user/'+document.getElementById('addUserId').value)
         .then(res => {
-            document.getElementById("modal-button").click()
+            document.getElementById("modal-button1").click()
+            this.getGroupUsers();
             this.getGrouptransaction();
             document.getElementById("myForm").reset();
         })
@@ -123,7 +124,7 @@ class groupDetails extends Component {
                       Make Transaction
                     </button>
                     <button
-                        id="modal-button"
+                        id="modal-button1"
                       type="button"
                       className="btn btn-info btn-lg"
                       data-toggle="modal"
@@ -205,6 +206,7 @@ class groupDetails extends Component {
                       />
                     </div>
                     <div className="align-right">
+                      <button type="button" style={{visibility:"hidden"}} onClick={this}></button>
                       <button
                         type="button"
                         className="btn btn-primary"
@@ -278,6 +280,7 @@ class groupDetails extends Component {
                       >
                         Close
                       </button>
+                      <button type="button" id="getuserId" style={{visibility:"hidden"}} onClick={this.props.getUserId}></button>
                     </div>
                   </form>
                 </div>

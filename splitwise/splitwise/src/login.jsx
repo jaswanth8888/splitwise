@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { BrowserRouter as Router, Switch, Route, Link , Redirect  } from "react-router-dom";
-import md5 from 'crypto-js';
-import sha256 from 'crypto-js/sha256';
+import md5 from 'md5';
 export default class login extends Component {
   constructor(props) {
     var cookie = new Cookies();
@@ -27,11 +26,13 @@ export default class login extends Component {
     this.setState({ user });
   };
   submitForm = () => {
+    let user=this.state.user;
+    user.password=md5(this.state.user.password);
     axios
-      .post("http://localhost:8000/authenticate", this.state.user)
+      .post("http://localhost:8000/authenticate",user)
       .then(res => {
         if ((res.status = 200)) {
-          if(res.data.authentication==="true"){  
+          if(res.data.authentication=="true"){  
           var cookie = new Cookies();
           
           cookie.set("email",this.state.user.username);

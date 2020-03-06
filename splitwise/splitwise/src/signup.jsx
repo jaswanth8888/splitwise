@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Redirect } from "react-router-dom";
-import md5 from 'crypto-js';
-import sha256 from 'crypto-js/sha256';
+import md5 from 'md5';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default class signup extends Component {
@@ -29,7 +28,7 @@ export default class signup extends Component {
         },
         dob:'06/05/1999',
         phoneNumber:8787878,
-        password:document.getElementById('password').value,
+        password:md5(document.getElementById('password').value),
         email:document.getElementById('email').value,
         address:{
             hno:'1',

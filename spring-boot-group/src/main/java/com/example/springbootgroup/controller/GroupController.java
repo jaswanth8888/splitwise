@@ -38,10 +38,8 @@ public class GroupController {
     
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create-group")
-    public Group createGroup(@RequestBody Group group) {
-    	
-    	boolean ss=userServiceProxy.addGroup(group.getCreatedById(), group.getId());
-    	return groupService.createGroup(group);    	
+    public boolean createGroup(@RequestBody Group group) {
+    	return groupService.createGroup(group) != null;    	
     }
     @GetMapping("/get-group-name/{groupId}")
     public String getGroupName(@PathVariable Integer groupId) {

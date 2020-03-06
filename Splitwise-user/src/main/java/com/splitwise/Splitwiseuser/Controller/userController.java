@@ -121,9 +121,10 @@ public class userController {
 			u.setCredit(credit+amount);
 		return userService.save(u);
 	}
-	
+	@CrossOrigin("http://localhost:3000")
 	@GetMapping("user/{userId}/group/{groupId}")
 	public boolean addGroup(@PathVariable Integer userId,@PathVariable Integer groupId) {
+		System.out.println("add group"+userId+" "+groupId);
 		User u=userService.getUserById(userId);
 		List<Integer> groups=u.getGroups();
 		groups.add(groupId);

@@ -25,7 +25,12 @@ export default class createGroup extends Component {
     }
     console.log(group);
     axios.post("http://localhost:9190/create-group",group).then(res => {
-      document.getElementById("modal-button").click()
+      if(res.status==200){
+        axios.get("http://localhost:8000/user/"+document.getElementById("createGroupUserId").value+"/group/"+group.id).then((res)=>{
+          document.getElementById("modal-button1").click()
+        })
+      }
+      
       
     })
   }
@@ -36,7 +41,7 @@ export default class createGroup extends Component {
         <div>
           <button
             type="button"
-            id="modal-button"
+            id="modal-button1"
             className="btn btn-info btn-lg"
             data-toggle="modal"
             data-target="#createGroup"

@@ -4,8 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name="splitwise-zuul")
+@FeignClient(name="group-management")
 public interface GroupServiceProxy {
-	@GetMapping("group-management/get-group-name/{groupId}")
+	@GetMapping("/get-group-name/{groupId}")
 	 public String getGroupName(@PathVariable("groupId") Integer userId);
 }

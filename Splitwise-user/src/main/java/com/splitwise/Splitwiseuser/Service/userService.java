@@ -51,4 +51,13 @@ public class userService {
 		// TODO Auto-generated method stub
 		return userRepository.findByUsername(username);
 	}
+
+	public boolean save(User u) {
+		// TODO Auto-generated method stub
+		return userRepository.save(u) != null;
+	}
+	
+	public List<User> getAllUsers(){
+		return userRepository.findAll();
+	}
 }

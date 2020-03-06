@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.splitwise.Splitwiseuser.Service.GroupServiceProxy;
 import com.splitwise.Splitwiseuser.Service.userService;
+import com.splitwise.Splitwiseuser.beans.Authenticate;
 import com.splitwise.Splitwiseuser.beans.User;
 
 @RestController
@@ -25,8 +27,10 @@ public class userController {
 	private GroupServiceProxy groupServiceProxy;
 
 	@GetMapping("/user/{uId}")
-	public User getUser(@PathVariable int uId) {
-		return userService.getUserById(uId);
+	public HashMap<Integer, String> getUser(@PathVariable int uId) {
+		HashMap<Integer, String> user=new HashMap<Integer, String>();
+		user.put(uId,userService.getUserById(uId).getName().getFirstName());
+		return user;
 	}
 	@PostMapping("/user")
 	public User saveUser(@RequestBody User user ) {
@@ -65,7 +69,6 @@ public class userController {
 	@GetMapping("/get-groups/{userId}")
 	@CrossOrigin(origins = "http://localhost:3000")
 	public HashMap<Integer,String> getGroupsByUserId(@PathVariable Integer userId){
-		System.out.println(userId);
 		User user=userService.getUserById(userId);
 		List<Integer> groupIds=user.getGroups();
 		HashMap<Integer,String> groups=new HashMap<Integer, String>();
@@ -75,5 +78,55 @@ public class userController {
 		}
 		return groups;
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/authenticate")
+	public HashMap<String,String> authenticate(@RequestBody Authenticate authenticate){
+		HashMap<String, String> validation = new HashMap<String, String>();
+		User user=userService.getUserByUsername(authenticate.getUsername());
+		validation.put("email", authenticate.getUsername());
+		validation.put("authentication",""+user.getPassword().equals(authenticate.getPassword()));
+		
+		return validation;
+	}
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/get-user-transactions/{userId}")
+	public HashMap<String, Object> getTransactionsAndCredit(@PathVariable Integer userId){
+		User user=userService.getUserById(userId);
+		HashMap<String, Object> transactionDetails=new HashMap<String, Object>();
+		transactionDetails.put("credit",user.getCredit());
+		transactionDetails.put("debit",user.getDebit());		
+		return transactionDetails;
+	}
 	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/get-all-users")
+	public HashMap<Integer, String> getallUsers(){
+		HashMap<Integer, String> users=new HashMap<Integer, String>();
+		List<User> userz=userService.getAllUsers();
+		for(User user:userz) {
+			users.put(user.getId(), user.getName().getFirstName());
+		}
+		return users;
+	}
+	
+	@GetMapping("/settle/{type}/{userId}/{amount}")
+	public boolean settleCreditdebit(@PathVariable String type,@PathVariable Integer userId,@PathVariable Integer amount) {
+		User u=userService.getUserById(userId);
+		if(type.equals("debit")) {
+			Integer due=u.getDebit();
+			u.setDebit(due-amount);
+			return userService.save(u);
+		}
+		Integer credit=u.getCredit();
+			u.setCredit(credit+amount);
+		return userService.save(u);
+	}
+	
+	@GetMapping("user/{userId}/group/{groupId}")
+	public boolean addGroup(@PathVariable Integer userId,@PathVariable Integer groupId) {
+		User u=userService.getUserById(userId);
+		List<Integer> groups=u.getGroups();
+		groups.add(groupId);
+		return userService.save(u);
+	}
 }

@@ -10,7 +10,7 @@ public class Transaction {
 	private int toUser;
 	private double amount;
 	private Date transactionAt;
-	private int expenditureId;
+	private String description;
 	private int groupId;
 	private boolean isSettled;
 	public int getId() {
@@ -43,11 +43,11 @@ public class Transaction {
 	public void setTransactionAt(Date transactionAt) {
 		this.transactionAt = transactionAt;
 	}
-	public int getExpenditureId() {
-		return expenditureId;
+	public String getDescription() {
+		return description;
 	}
-	public void setExpenditureId(int expenditureId) {
-		this.expenditureId = expenditureId;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public int getGroupId() {
 		return groupId;
@@ -61,7 +61,7 @@ public class Transaction {
 	public void setSettled(boolean isSettled) {
 		this.isSettled = isSettled;
 	}
-	public Transaction(int id, int fromUser, int toUser, double amount, Date transactionAt, int expenditureId,
+	public Transaction(int id, int fromUser, int toUser, double amount, Date transactionAt, String description,
 			int groupId, boolean isSettled) {
 		super();
 		this.id = id;
@@ -69,16 +69,17 @@ public class Transaction {
 		this.toUser = toUser;
 		this.amount = amount;
 		this.transactionAt = transactionAt;
-		this.expenditureId = expenditureId;
+		this.description = description;
 		this.groupId = groupId;
 		this.isSettled = isSettled;
 	}
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", fromUser=" + fromUser + ", toUser=" + toUser + ", amount=" + amount
-				+ ", transactionAt=" + transactionAt + ", expenditureId=" + expenditureId + ", groupId=" + groupId
+				+ ", transactionAt=" + transactionAt + ", description=" + description + ", groupId=" + groupId
 				+ ", isSettled=" + isSettled + "]";
 	}
+	
 	
 	
 }

@@ -6,12 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient(name="splitwise-zuul")
+@FeignClient(name="user-management")
 public interface UserServiceProxy {
-	 @GetMapping("user-management/user/{userId}")
+	 @GetMapping("user/{userId}")
 	 public Object getUser(@PathVariable("userId") int userId); 
 	 
-	 @GetMapping("user-management/checkUser/{uId}")
+	 @GetMapping("checkUser/{uId}")
 	 public boolean checkUserExsists(@PathVariable("uId") int uId);
+	 
+	 @GetMapping("user/{userId}/group/{groupId}")
+	public boolean addGroup(@PathVariable("userId") Integer userId,@PathVariable("groupId") Integer groupId);
 }
 	

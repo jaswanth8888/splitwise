@@ -72,9 +72,9 @@ class SplitwiseUserApplicationTests {
 	{
 		List<User> list=new ArrayList<User>();
 		
-		User user1=new User(12,new Name("Preeti", "Agarwal"), "12/10/87", 986588665, "preeti@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
-		User user2=new User(14,new Name("Saahil", "Agarwal"), "12/10/87", 986588665, "saahil@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
-		User user3=new User(17,new Name("Prerana", "Jayakumar"), "12/10/87", 986588665, "preeti@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
+		User user1=new User(12,new Name("Preeti", "Agarwal"), "12/10/87",0,0,986588665, "preeti@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
+		User user2=new User(14,new Name("Saahil", "Agarwal"), "12/10/87",0,0, 986588665, "saahil@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
+		User user3=new User(17,new Name("Prerana", "Jayakumar"), "12/10/87",0,0, 986588665, "preeti@ps.com","123", new Address("56", "krishna", "hyderbad",87, "kengeri", "Karnataka", "India"), new ArrayList<Integer>(), new ArrayList<Integer>());
 
 	
 	list.add(user1);

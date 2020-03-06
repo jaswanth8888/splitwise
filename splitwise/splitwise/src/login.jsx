@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { Redirect } from "react-router-dom";
-
+import { BrowserRouter as Router, Switch, Route, Link , Redirect  } from "react-router-dom";
+import md5 from 'crypto-js';
+import sha256 from 'crypto-js/sha256';
 export default class login extends Component {
   constructor(props) {
     var cookie = new Cookies();
@@ -27,22 +28,22 @@ export default class login extends Component {
   };
   submitForm = () => {
     axios
-      .post("http://localhost:8765/authenticate", this.state.user)
+      .post("http://localhost:8000/authenticate", this.state.user)
       .then(res => {
         if ((res.status = 200)) {
+          if(res.data.authentication==="true"){  
           var cookie = new Cookies();
-          let d = new Date();
-          let minutes = 10;
-          d.setTime(d.getTime() + minutes * 60 * 1000);
+          
           cookie.set("email",this.state.user.username);
-          cookie.set("token",res.data.token);
+          
           this.setState({ login: true });
         }
+      }
       });
   };
   isAuthenticated() {
     var cookie = new Cookies();
-    var token = cookie.get("token");
+    var token = cookie.get("email");
 
     return token && token.length > 10;
   }
@@ -112,12 +113,15 @@ export default class login extends Component {
                   onClick={this.submitForm}
                 >
                   Login
-                </button>
+                </button><br/>
+                Not  a member ? <Link to="/signup">Signup</Link>
               </form>
             </div>
           </div>
           </div>
+         
           </div>
+        
         )}
       </div>
     );

@@ -42,12 +42,12 @@ export default class createGroup extends Component {
               </div>
               <div className="modal-body">
                 <form>
-                  <div class="form-group">
-                      <label class="control-label" for="groupName">
+                  <div className="form-group">
+                      <label className="control-label" htmlFor="groupName">
                         Group Name
                       </label>
                       <input
-                        class="form-control"
+                        className="form-control"
                         id="groupName"
                         name="name"
                         type="text"

@@ -24,4 +24,8 @@ public class GroupService {
 	public boolean checkGroupExsists(Integer groupId) {
 		return groupRepository.existsById(groupId);
 	}
+	
+	public boolean save(Group group) {
+		return groupRepository.save(group) != null;
+	}
 }

@@ -36,11 +36,11 @@ public class GroupController {
     @Autowired
     private TransactionServiceProxy transactionServiceProxy;
     
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create-group")
     public Group createGroup(@RequestBody Group group) {
-    	System.out.println("group creation........");
-//    	Group group1=new Group(1,"Fellas",101,Arrays.asList(),Arrays.asList(),Arrays.asList());
-//    	
+    	
+    	boolean ss=userServiceProxy.addGroup(group.getCreatedById(), group.getId());
     	return groupService.createGroup(group);    	
     }
     @GetMapping("/get-group-name/{groupId}")

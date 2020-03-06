@@ -76,7 +76,7 @@ export default class home extends Component {
                       <div className="toast-body">
                         <div className="split-text">
                           <p className="content">
-                            {transaction.toUser} needs pay you &#8377;&nbsp;
+                            {this.props.allUsers[transaction.toUser]} needs pay you &#8377;&nbsp;
                             {transaction.amount}
                           </p>
                           <small>{transaction.description}</small>

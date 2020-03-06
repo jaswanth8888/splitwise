@@ -1,42 +1,12 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react'
 
-export default class createGroup extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      group: {
-        name: "",
-        friends: [],
-        createdBy: 1
-      }
-    };
-  }
-  createGroup = event => {
-    const group={
-      id:Math.floor(Math.random() * (90000)) + 10000,
-      name:document.getElementById("createGroupName").value,
-      createdBy:document.getElementById("createGroupUserId").value,
-      members:[parseInt(document.getElementById("createGroupUserId").value)],
-      transactions:[],
-      expenditures:[]
-
-    }
-    console.log(group);
-    axios.post("http://localhost:9190/create-group",group).then(res => {
-      document.getElementById("modal-button").click()
-      
-    })
-  }
-
-  render() {
-    return (
-      <div className="container">
+export default class makeTransaction extends Component {
+    render() {
+        return (
+            <div className="container">
         <div>
           <button
             type="button"
-            id="modal-button"
             className="btn btn-info btn-lg"
             data-toggle="modal"
             data-target="#createGroup"
@@ -60,14 +30,13 @@ export default class createGroup extends Component {
               </div>
               <div className="modal-body">
                 <form>
-                <input type="hidden" id="createGroupUserId" value={this.props.userId} />
                   <div className="form-group">
                       <label className="control-label" htmlFor="groupName">
                         Group Name
                       </label>
                       <input
                         className="form-control"
-                        id="createGroupName"
+                        id="groupName"
                         name="name"
                         type="text"
                         placeholder="Group Name"
@@ -77,7 +46,7 @@ export default class createGroup extends Component {
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={this.createGroup}>
+                <button type="button" className="btn btn-primary">
                   Create
                 </button>
                 <button
@@ -92,6 +61,6 @@ export default class createGroup extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+        )
+    }
 }
